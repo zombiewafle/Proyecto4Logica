@@ -3,7 +3,7 @@
 %derivada(h(x), x, dh/dx)
 
 
-
+%función obtenida de:
 %https://gist.github.com/tokkenno/8038482
 derivada(X, X, 1).
 
@@ -69,3 +69,20 @@ derivada(F/G, Var, Dh):-
 	derivada(F, Var, Df),
 	derivada(G, Var, Dg),
 	Dh = (G*Df - F*Dg)/(G)^2.
+
+derivada(sec(F), Var,  Dh):-
+	derivada(F, Var, Df),
+	Dh = tan(F) * sec(F) * Df.
+
+derivada(csc(F), Var,  Dh):-
+	derivada(F, Var, Df),
+	Dh = -cot(F) * csc(F) * Df.
+
+derivada(cot(F), Var,  Dh):-
+	derivada(F, Var, Df),
+	Dh = -csc()^2 * Df.
+
+%referencias:
+%https://www.swi-prolog.org/pldoc/man?section=typetest
+%https://gist.github.com/tokkenno/8038482
+%http://www.cse.unsw.edu.au/~billw/dictionaries/prolog/comparison.html
