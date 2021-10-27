@@ -102,49 +102,58 @@ opElevacion(Ascii):-
 derivada(X, X, 1).
 
 derivada(X, _, Yields):-
-	atom(X),
-	name(X, Ascii),
-	numero(Ascii),
+	integer(X),
 	Yields = 0.
 
-derivada(X + Y, Var, Yields):-
-	derivada(X, Var, D1),
-	derivada(Y, Var, D2),
-	Yields =  D1 + D2.
+derivada(F + G, Var, Yields):-
+	derivada(F, Var, Df),
+	derivada(G, Var, Dg),
+	Yields =  Df + Dg.
 
-derivada(X - Y, Var, Yields):-
-	derivada(X, Var, D1),
-	derivada(Y, Var, D2),
-	Yields =  D1 + D2.
+derivada(F - G, Var, Yields):-
+	derivada(F, Var, Df),
+	derivada(G, Var, Dg),
+	Yields =  Df + Dg.
 
-derivada(ln(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = 1/X*D1.
+derivada(ln(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = 1/F*Df.
 
-derivada(cos(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = -sen(X)*D1.
+derivada(cos(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = -sen(F)*Df.
 
-derivada(sen(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = cos(X)*D1.
+derivada(sen(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = cos(F)*Df.
 
-derivada(sin(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = cos(X)*D1.
+derivada(sin(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = cos(F)*Df.
 
-derivada(arctan(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = 1/(X^2+1)*D1.
+derivada(arctan(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = 1/(F^2+1)*Df.
 
-derivada(tan(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = sec2(X)*D1.
+derivada(tan(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = sec2(F)*Df.
 
-derivada(exp(X), Var, Yields):-
-	derivada(X, Var, D1),
-	Yields = exp(X)*D1.
+derivada(exp(F), Var, Yields):-
+	derivada(F, Var, Df),
+	Yields = exp(F)*Df.
 
-%derivada(X ^ Y, Var, Yields) :-
-%derivada(X*Y, Var, Yields):-
-%derivada(X/Y, Var, Yields):-
+derivada(F ^ Y, Var, Yields) :-
+	derivada(F, Var, Df),
+	Ym1 is Y-1,
+	Yields = Y*F ^ Ym1 * Df.
+
+derivada(F*G, Var, Yields):-
+	derivada(F, Var, Df),
+	derivada(G, Var, Dg),
+	Yields = Df * G + Dg * F.
+
+derivada(F/G, Var, Yields):-
+	derivada(F, Var, Df),
+	derivada(G, Var, Dg),
+	Yields = (G*Df - F*Dg)/(G)^2.
