@@ -3,3 +3,14 @@
 % , funciones polinomiales, coseno, seno, tangente, arctan, exponentes y logaritmo natural
 
 
+% Derivada de una constante
+derivada(U,	0):- 
+	number(U).	
+
+	
+% Derivada de x^n
+
+derivada(U^N, X, N*X^V):- 
+	N > 0,
+	V is N-1.
+
