@@ -11,6 +11,12 @@ derivada(X, _, Dh):-
 	integer(X),
 	Dh = 0.
 
+derivada(X, Var, Dh):-
+	\+ compound(X),
+	\+ integer(X),
+	X \== Var,
+	Dh = 0.
+
 derivada(F + G, Var, Dh):-
 	derivada(F, Var, Df),
 	derivada(G, Var, Dg),
