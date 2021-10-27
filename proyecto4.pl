@@ -1,5 +1,4 @@
 
-
 asciiExp([pAbre(_), asciiExp(_), pCierra(_)]).
 %asciiExp([asciiExp(_), opSum(_), asciiExp(_)]).
 %asciiExp([asciiExp(_), opMul(_), asciiExp(_)]).
@@ -17,26 +16,40 @@ asciiExp(Ascii):-
 	[H|T] = Ascii,
 	numero(H),
 	[H2, T2] = T,
-	opSum(H2);
-	opMul(H2);
-	opResta(H2);
-	opDivision(H2);
-	opElevacion(H2);
+	opSum(H2),
 	asciiExp(T2).
 
-%asciiExp(Ascii):-
-%	[H|T] = Ascii,
-%	numero(H),
-%	[H2, T2] = T,
-%	opMul(H2),
-%	asciiExp(T2).
-%
-%asciiExp(Ascii):-
-%	[H|T] = Ascii,
-%	numero(H),
-%	[H2, T2] = T,
-%	opResta(H2),
-%	asciiExp(T2).
+%multiplicacion
+asciiExp(Ascii):-
+	[H|T] = Ascii,
+	numero(H),
+	[H2, T2] = T,
+	opMul(H2),
+	asciiExp(T2).
+
+%resta
+asciiExp(Ascii):-
+	[H|T] = Ascii,
+	numero(H),
+	[H2, T2] = T,
+	opResta(H2),
+	asciiExp(T2).
+
+%division
+asciiExp(Ascii):-
+	[H|T] = Ascii,
+	numero(H),
+	[H2, T2] = T,
+	opDivision(H2),
+	asciiExp(T2).
+
+%opElevacion
+asciiExp(Ascii):-
+	[H|T] = Ascii,
+	numero(H),
+	[H2, T2] = T,
+	opElevacion(H2),
+	asciiExp(T2).
 
 expresion(X):-
 	name(X, Ascii),
